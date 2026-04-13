@@ -145,6 +145,55 @@ hr {
 	border-width: 0;
 }
 
+/* --- Markdown Article (.prose) Specific Styles --- */
+.prose h2 {
+	margin-top: 2.5em;
+	margin-bottom: 1em;
+	padding-bottom: 0.3em;
+	border-bottom: 1px solid var(--border-color);
+}
+
+.prose h3 {
+	margin-top: 2em;
+	margin-bottom: 0.8em;
+}
+
+.prose blockquote {
+	margin: 2em 0;
+	padding: 1em 1.5em;
+	background-color: rgba(255, 255, 255, 0.03);
+	border-left: 4px solid var(--accent);
+	border-radius: 0 var(--radius) var(--radius) 0;
+	font-style: italic;
+	color: var(--text-main);
+}
+
+.prose blockquote p {
+	margin-bottom: 0;
+}
+
+.prose ul {
+	margin-bottom: 1.5em;
+	padding-left: 1.5em;
+}
+
+.prose li {
+	margin-bottom: 0.8em;
+	color: var(--text-muted);
+}
+
+.prose li::marker {
+	color: var(--accent);
+}
+
+code {
+	color: #f5a97f; /* Catppuccin Peach for accenting technical keywords */
+	background-color: #494d64; /* Surface 1 */
+	padding: 0.2em 0.4em;
+	border-radius: 4px;
+	font-size: 0.9em;
+}
+
 @media (max-width: 720px) {
 	.card { padding: 1.2em; }
 	main { margin-top: 1em; }
