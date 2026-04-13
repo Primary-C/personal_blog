@@ -1,41 +1,53 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
 
 <!doctype html>
 <html lang="ko">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.post-list {
+				display: flex;
+				flex-direction: column;
+			}
+			.post-card {
+				display: block;
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<div class="card">
-				<span class="badge">Welcome</span>
-				<h2>안녕하세요, 환영합니다.</h2>
-				<p>
-					이곳은 평범한 일상과 개발 진척도, 그리고 개인적인 취미 생활을 소소하게 남겨두기 위해 만들어진 <b>개인 블로그</b>입니다. 클라우드플레어를 통한 자동화 배포 환경에서 돌아가고 있습니다.
-				</p>
-			</div>
-
-			<div class="card">
-				<span class="badge">Dev_Tech</span>
-				<h3>[개발 진척 로그]</h3>
-				<p>
-					AI 에이전트 파이프라인 구축 일지, 스크린샷 렌더링 연구 등 제가 현재 어떤 기술들을 다루고 삽질(?)하며 구현하고 있는지 편안하게 기록하는 일기장 파트입니다.
-				</p>
-			</div>
-
-			<div class="card">
-				<span class="badge">Hobbies</span>
-				<h3>[서브컬처와 취미]</h3>
-				<p>
-					평소 즐기는 서브컬처 취미 생활에 대한 잡담이나 게임 감상, 그리고 개인적으로 구상 중인 창작 설정들을 가볍게 올리는 공간입니다.
-				</p>
-			</div>
+			<section class="post-list">
+				{
+					posts.map((post) => (
+						<a href={`/blog/${post.id}/`} class="card post-card">
+							{post.data.tags && post.data.tags.length > 0 ? (
+								post.data.tags.map((tag) => (
+									<span class="badge">#{tag}</span>
+								))
+							) : (
+								<span class="badge">Tech_Archive</span>
+							)}
+							<h3 class="title">{post.data.title}</h3>
+							<span class="date">
+								<FormattedDate date={post.data.pubDate} />
+							</span>
+							<p>{post.data.description}</p>
+						</a>
+					))
+				}
+			</section>
 		</main>
 		<Footer />
 	</body>
