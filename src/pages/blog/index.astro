@@ -32,7 +32,13 @@ const posts = (await getCollection('blog')).sort(
 				{
 					posts.map((post) => (
 						<a href={`/blog/${post.id}/`} class="card post-card">
-							<span class="badge">Tech_Archive</span>
+							{post.data.tags && post.data.tags.length > 0 ? (
+								post.data.tags.map((tag) => (
+									<span class="badge">#{tag}</span>
+								))
+							) : (
+								<span class="badge">Tech_Archive</span>
+							)}
 							<h3 class="title">{post.data.title}</h3>
 							<span class="date">
 								<FormattedDate date={post.data.pubDate} />

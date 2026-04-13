@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+
+const allPosts = await getCollection('blog');
+const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())].filter(Boolean) as string[];
+---
+<html lang="ko">
+	<head>
+		<BaseHead title={`Tags | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<style>
+			.tags-container {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5em;
+				margin-top: 1.5em;
+			}
+			.badge {
+				font-size: 0.9em;
+				padding: 0.4em 0.8em;
+				text-decoration: none;
+				transition: background-color 0.2s ease, color 0.2s ease;
+				cursor: pointer;
+			}
+			.badge:hover {
+				background-color: var(--accent);
+				color: var(--bg-base);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="card">
+				<h2 style="margin-bottom: 0;">전체 시스템 태그</h2>
+				<p style="margin-bottom: 0.5em;"><small>블로그에 작성된 글들을 주제별로 모아봅니다.</small></p>
+				<hr style="margin: 1em 0;" />
+				<div class="tags-container">
+					{tags.map((tag) => (
+						<a class="badge" href={`/tags/${tag}`}>#{tag}</a>
+					))}
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
