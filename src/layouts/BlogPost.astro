@@ -102,6 +102,25 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 						<hr />
 					</div>
 					<slot />
+					
+					<!-- Giscus Comments -->
+					<div style="margin-top: 4em; padding-top: 2em; border-top: 1px solid var(--border-color);">
+						<script src="https://giscus.app/client.js"
+								data-repo="Primary-C/personal_blog"
+								data-repo-id="R_kgDOSA8r0A"
+								data-category="General"
+								data-category-id="DIC_kwDOSA8r0M4C6toF"
+								data-mapping="pathname"
+								data-strict="0"
+								data-reactions-enabled="1"
+								data-emit-metadata="0"
+								data-input-position="bottom"
+								data-theme="preferred_color_scheme"
+								data-lang="ko"
+								crossorigin="anonymous"
+								async>
+						</script>
+					</div>
 				</div>
 			</article>
 		</main>
